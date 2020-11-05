@@ -12,4 +12,4 @@ A collection of productivity tools
 
 
 ## 3、jira_utility_local
-一个使用 RESTful API 自由创建 jira 的工具。
+一个使用 RESTful API 制作可以自由创建 jira 的工具。
