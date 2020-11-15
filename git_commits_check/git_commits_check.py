@@ -5,7 +5,26 @@ commit_content = []
 commit_author = []
 
 
-def commits_parser(file):
+def commits_parser_fairly(file):
+    with open(file, 'r', encoding='utf-8') as file_object:
+        lines, inner_author_lst = file_object.readlines(), []
+        for (line_number, line_content) in enumerate(lines):
+            if line_content.startswith("commit"):
+                commit_id_lst.append(line_content[7:14])
+                if (line_number - 2) > 0:
+                    commit_content.append(lines[line_number - 2])
+                if inner_author_lst != []:
+                    maxlabel = max(
+                        inner_author_lst,
+                        key=inner_author_lst.count)
+                    inner_author_lst = []
+                    commit_author.append(maxlabel)
+            if line_content.startswith("    Author:"):
+                inner_author = str(line_content.strip()[7::])
+                inner_author_lst.append(inner_author)
+
+
+def commits_parser_loosely(file):
     with open(file, 'r', encoding='utf-8') as file_object:
         lines = file_object.readlines()
         for (line_number, line_content) in enumerate(lines):
@@ -32,7 +51,7 @@ def set_style(name, height, bold=False):
 
 
 def gen_commits_excel(input, output):
-    commits_parser(input)
+    commits_parser_fairly(input)
     f = xlwt.Workbook()
     sheet = f.add_sheet('students', cell_overwrite_ok=True)
     xls_title = ["Commit", "Title", "Owner", "Status"]
