@@ -14,7 +14,7 @@ AUTH = HTTPBasicAuth(
     base64.b64decode('usernameb64encode'),
     base64.b64decode('passwordb64encode'))
 
-jira_matrix = {
+JIRA_MATRIX = {
     "feature1_branch": {"assignee": {"linux": "linux_owner", "windows": "windows_owner"},
                         "main_issue_id": {"linux": "MS-1", "windows": "MS-2"},
                         "if_subtask": {"is_subtask": {"parent_id": {"linux": "10XXX", "windows": "10XXX"}},
